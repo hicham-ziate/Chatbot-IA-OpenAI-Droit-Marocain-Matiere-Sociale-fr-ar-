@@ -1,0 +1,21 @@
+# Environnement
+backend/.env
+.env
+
+# Dépendances
+backend/node_modules/
+frontend/node_modules/
+
+# Index RAG (généré localement)
+backend/data/index.json
+
+# Build frontend
+frontend/dist/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
