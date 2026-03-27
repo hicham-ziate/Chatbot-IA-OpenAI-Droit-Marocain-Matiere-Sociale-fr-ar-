@@ -1,27 +1,67 @@
 # Chatbot IA – Droit Marocain / Matière Sociale 🇲🇦
 
-> Chatbot juridique bilingue (français / عربي) spécialisé en droit social marocain, propulsé par OpenAI GPT-3.5 et un système RAG sur plus de 60 textes de loi officiels.
+> Chatbot juridique bilingue (français / عربي) spécialisé en droit social marocain, propulsé par OpenAI GPT-3.5 et un système RAG sur 82 textes de loi officiels.
+
+**Application en ligne :** https://chatbot-ia-openai-droit-marocain-matiere-07u5.onrender.com
+
+---
+
+## Contexte du projet
+
+Exercice académique : développer un chatbot IA spécialisé en **droit marocain**, capable de répondre aux questions des citoyens et étudiants sur :
+- Droit civil et pénal
+- Droit du travail
+- Fiscalité et impôts
+- Procédures administratives
+
+**Toutes les fonctionnalités bonus (niveau avancé) ont été réalisées :**
+- Mémoire de conversation (historique par session)
+- Intégration de 82 PDFs de lois officielles (RAG)
+- Bilingue FR / AR
+- Interface moderne type ChatGPT
 
 ---
 
 ## Aperçu
 
-Ce projet est une application web full-stack qui permet à n'importe quel utilisateur de poser des questions en **français ou en arabe** sur le **droit du travail marocain** (Code du Travail, dahirs, décrets d'application) et d'obtenir des réponses précises, citant les articles pertinents, grâce à la combinaison de :
+Application web full-stack permettant de poser des questions en **français ou en arabe** sur le **droit du travail marocain** (Code du Travail, dahirs, décrets d'application) et d'obtenir des réponses précises citant les articles pertinents, grâce à :
 
-- **OpenAI GPT-3.5-turbo** pour la génération de réponses
+- **OpenAI GPT-3.5-turbo** pour la génération de réponses (choisi pour sa qualité sur le français et l'arabe juridique, et pour permettre un déploiement en ligne accessible)
 - **RAG (Retrieval-Augmented Generation)** pour injecter le contexte légal exact dans chaque réponse
-- Une base documentaire de **60+ PDFs officiels** en français et en arabe
+- Une base documentaire de **82 PDFs officiels** — 558 chunks indexés — en français et en arabe
+
+---
+
+## Prompt spécialisé
+
+```
+Tu es un assistant juridique expert en droit marocain, spécialisé en matière sociale
+et droit du travail. Tu maîtrises le Code civil, le Code pénal, le Code du travail,
+la fiscalité et les procédures administratives marocaines.
+
+Règles de réponse :
+- Réponds TOUJOURS dans la langue de l'utilisateur : français ou عربية
+- Cite systématiquement les articles exacts
+  (ex : Article 34 du Code du travail / الفصل 34 من مدونة الشغل)
+- Structure chaque réponse : définition légale → droits et obligations
+  → sanctions → exemple concret
+- Sois précis, professionnel et accessible
+- Si des extraits de lois sont fournis dans le contexte, base-toi dessus en priorité
+- Ton point fort est la matière sociale : contrats de travail, licenciement, SMIG,
+  congés, accidents du travail, syndicats, sécurité sociale
+```
 
 ---
 
 ## Fonctionnalités
 
-- **Bilingue FR / AR** — détecte automatiquement la langue de la question et répond dans la même langue (support RTL/LTR)
-- **RAG sur PDFs** — les textes de loi sont indexés et les passages les plus pertinents sont recherchés à chaque requête
+- **Bilingue FR / AR** — détecte automatiquement la langue et répond dans la même langue (support RTL/LTR)
+- **RAG sur PDFs** — 82 textes de loi indexés, passages pertinents injectés à chaque requête
 - **Citations légales** — les réponses référencent les articles avec numéros dans les deux langues
-- **Gestion de session** — historique de conversation par utilisateur (20 messages max, nettoyage automatique)
+- **Mémoire de conversation** — historique par session (20 messages max, nettoyage automatique)
 - **Interface chat moderne** — React avec animations, bulles de messages, indicateur de chargement, bouton de réinitialisation
 - **Responsive** — modal sur desktop, plein écran sur mobile
+- **Déployé en ligne** — accessible 24h/24 depuis n'importe quel appareil
 
 ---
 
@@ -35,6 +75,7 @@ Ce projet est une application web full-stack qui permet à n'importe quel utilis
 | RAG | Moteur custom (chunking + scoring de tokens) |
 | PDF | `pdf-parse` |
 | HTTP | axios, cors |
+| Déploiement | Render.com (Web Service + Static Site) |
 
 ---
 
@@ -43,7 +84,7 @@ Ce projet est une application web full-stack qui permet à n'importe quel utilis
 ```
 ├── backend/
 │   ├── data/
-│   │   ├── index.json              # Index RAG (généré par le script)
+│   │   ├── index.json              # Index RAG (82 PDFs, 558 chunks)
 │   │   └── pdfs/
 │   │       ├── matiere_sociale_arabe/
 │   │       │   ├── dahir/ar/
@@ -54,7 +95,6 @@ Ce projet est une application web full-stack qui permet à n'importe quel utilis
 │   │           ├── decret_application/fr/
 │   │           └── principal/fr/
 │   ├── scripts/
-│   │   ├── downloadLaws.js         # Télécharge les lois depuis les sources officielles
 │   │   └── indexer.js              # Indexe les PDFs en chunks searchables
 │   ├── rag.js                      # Moteur RAG (recherche sémantique)
 │   ├── server.js                   # Serveur Express (API REST)
@@ -81,8 +121,8 @@ Ce projet est une application web full-stack qui permet à n'importe quel utilis
 ### 1. Cloner le dépôt
 
 ```bash
-git clone https://github.com/<votre-utilisateur>/<votre-repo>.git
-cd "<votre-repo>"
+git clone https://github.com/hicham-ziate/Chatbot-IA-OpenAI-Droit-Marocain-Matiere-Sociale-fr-ar-.git
+cd "Chatbot-IA-OpenAI-Droit-Marocain-Matiere-Sociale-fr-ar-"
 ```
 
 ### 2. Configurer les variables d'environnement
@@ -94,7 +134,7 @@ OPENAI_API_KEY=sk-...
 PORT=3000
 ```
 
-> **Important** : ne commitez jamais votre fichier `.env`. Ajoutez-le à `.gitignore`.
+> **Important** : ne commitez jamais votre fichier `.env`. Il est déjà dans `.gitignore`.
 
 ### 3. Installer les dépendances
 
@@ -108,14 +148,14 @@ cd ../frontend
 npm install
 ```
 
-### 4. Indexer les PDFs (première fois uniquement)
+### 4. Indexer les PDFs (optionnel — index.json déjà inclus)
 
 ```bash
 cd backend
 node scripts/indexer.js
 ```
 
-Cela génère `backend/data/index.json` utilisé par le moteur RAG.
+Cela régénère `backend/data/index.json` utilisé par le moteur RAG.
 
 ### 5. Démarrer l'application
 
@@ -151,15 +191,24 @@ POST /chat
 }
 ```
 
+### Réponse
+
+```json
+{
+  "reply": "En cas de licenciement abusif, l'article 41 du Code du travail...",
+  "fromPDF": true
+}
+```
+
 ---
 
-## Base documentaire
+## Base documentaire (82 PDFs)
 
-Plus de 60 textes juridiques officiels couvrant :
+Textes juridiques officiels couvrant :
 
 - **Code du Travail** (مدونة الشغل) — version FR et AR
 - **Dahirs** (décrets royaux) relatifs au travail, apprentissage, dialogue social
-- **Décrets d'application** — salaire minimum, conditions de travail, congés, travail des enfants, sécurité, contrats...
+- **Décrets d'application** — salaire minimum, conditions de travail, congés, travail des enfants, sécurité, contrats
 - **Lois sur la formation professionnelle** et la retraite
 
 Sources : [adala.justice.gov.ma](https://adala.justice.gov.ma), [tax.gov.ma](https://tax.gov.ma)
@@ -168,29 +217,16 @@ Sources : [adala.justice.gov.ma](https://adala.justice.gov.ma), [tax.gov.ma](htt
 
 ## Sécurité
 
-- Ne pas exposer la clé API OpenAI dans le code source — utilisez `.env`
-- Ajouter `.env` et `backend/data/index.json` au `.gitignore`
-- Envisager l'ajout d'un rate limiting (`express-rate-limit`) en production
-- Aucune authentification utilisateur n'est implémentée actuellement
-
----
-
-## Contribuer
-
-Les contributions sont les bienvenues ! Pour proposer une amélioration :
-
-1. Forkez le projet
-2. Créez une branche (`git checkout -b feature/ma-fonctionnalite`)
-3. Commitez vos changements (`git commit -m 'feat: ajout de ...'`)
-4. Poussez la branche (`git push origin feature/ma-fonctionnalite`)
-5. Ouvrez une Pull Request
+- Clé API OpenAI stockée dans `.env`, jamais exposée dans le code source
+- `.env` exclu du dépôt GitHub via `.gitignore`
+- Aucune donnée utilisateur stockée de façon permanente
 
 ---
 
 ## Licence
 
-Ce projet est distribué sous licence **MIT**. Voir le fichier [LICENSE](LICENSE) pour plus de détails.
+Ce projet est distribué sous licence **MIT**.
 
 ---
 
-*Projet développé dans le cadre d'une initiative d'accessibilité au droit marocain du travail.*
+*Projet développé dans le cadre d'un exercice académique sur le développement de chatbots IA spécialisés en droit marocain.*
