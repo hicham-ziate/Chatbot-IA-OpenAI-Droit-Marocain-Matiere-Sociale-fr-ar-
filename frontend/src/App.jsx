@@ -61,7 +61,7 @@ function App() {
     setIsLoading(true);
 
     try {
-      const res = await axios.post("http://localhost:3000/chat", {
+      const res = await axios.post("https://chatbot-ia-openai-droit-marocain-matiere.onrender.com/chat", {
         message: trimmed,
         sessionId,
       });
@@ -90,7 +90,7 @@ function App() {
 
   const resetConversation = async () => {
     try {
-      await axios.post("http://localhost:3000/reset", { sessionId });
+      await axios.post("https://chatbot-ia-openai-droit-marocain-matiere.onrender.com/reset", { sessionId });
     } catch {}
     setMessages([
       {
