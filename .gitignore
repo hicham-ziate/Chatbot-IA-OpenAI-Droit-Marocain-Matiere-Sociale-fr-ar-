@@ -6,8 +6,8 @@ backend/.env
 backend/node_modules/
 frontend/node_modules/
 
-# Données locales (PDFs trop lourds pour GitHub)
-backend/data/
+# Index RAG (généré localement)
+backend/data/index.json
 
 # Build frontend
 frontend/dist/
