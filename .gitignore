@@ -6,8 +6,7 @@ backend/.env
 backend/node_modules/
 frontend/node_modules/
 
-# Index RAG (généré localement)
-backend/data/index.json
+# index.json inclus dans le repo pour Render
 
 # Build frontend
 frontend/dist/
